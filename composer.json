@@ -1,5 +1,5 @@
 {
-    "name": "setono/sylius-feed-plugin",
+    "name": "carmagedon/sylius-feed-plugin",
     "description": "Plugin to generate feeds within the Sylius ecommerce platform",
     "license": "MIT",
     "type": "symfony-bundle",
