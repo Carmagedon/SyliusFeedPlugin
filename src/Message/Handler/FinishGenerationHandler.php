@@ -6,7 +6,7 @@ namespace Setono\SyliusFeedPlugin\Message\Handler;
 
 use Doctrine\Persistence\ObjectManager;
 use InvalidArgumentException;
-use League\Flysystem\FilesystemInterface;
+use League\Flysystem\Filesystem;
 use Psr\Log\LoggerInterface;
 use RuntimeException;
 use Setono\SyliusFeedPlugin\FeedType\FeedTypeInterface;
@@ -32,7 +32,7 @@ final class FinishGenerationHandler implements MessageHandlerInterface
 
     private ObjectManager $feedManager;
 
-    private FilesystemInterface $filesystem;
+    private Filesystem $filesystem;
 
     private Registry $workflowRegistry;
 
@@ -47,7 +47,7 @@ final class FinishGenerationHandler implements MessageHandlerInterface
     public function __construct(
         FeedRepositoryInterface $feedRepository,
         ObjectManager $feedManager,
-        FilesystemInterface $filesystem,
+        Filesystem $filesystem,
         Registry $workflowRegistry,
         Environment $twig,
         FeedTypeRegistryInterface $feedTypeRegistry,

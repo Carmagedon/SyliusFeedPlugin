@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Setono\SyliusFeedPlugin\EventListener;
 
 use League\Flysystem\FileNotFoundException;
-use League\Flysystem\FilesystemInterface;
+use League\Flysystem\Filesystem;
 use RuntimeException;
 use Setono\SyliusFeedPlugin\Generator\FeedPathGeneratorInterface;
 use Setono\SyliusFeedPlugin\Generator\TemporaryFeedPathGenerator;
@@ -17,17 +17,17 @@ use Symfony\Component\Workflow\Event\TransitionEvent;
 
 final class MoveGeneratedFeedSubscriber implements EventSubscriberInterface
 {
-    private FilesystemInterface $temporaryFilesystem;
+    private Filesystem $temporaryFilesystem;
 
-    private FilesystemInterface $filesystem;
+    private Filesystem $filesystem;
 
     private FeedPathGeneratorInterface $temporaryFeedPathGenerator;
 
     private FeedPathGeneratorInterface $feedPathGenerator;
 
     public function __construct(
-        FilesystemInterface $temporaryFilesystem,
-        FilesystemInterface $filesystem,
+        Filesystem $temporaryFilesystem,
+        Filesystem $filesystem,
         FeedPathGeneratorInterface $temporaryFeedPathGenerator,
         FeedPathGeneratorInterface $feedPathGenerator
     ) {

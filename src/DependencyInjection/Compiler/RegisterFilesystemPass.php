@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Setono\SyliusFeedPlugin\DependencyInjection\Compiler;
 
 use InvalidArgumentException;
-use League\Flysystem\FilesystemInterface;
+use League\Flysystem\Filesystem;
 use Symfony\Component\Config\Definition\Exception\InvalidDefinitionException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -31,20 +31,22 @@ final class RegisterFilesystemPass implements CompilerPassInterface
 
         foreach (self::PARAMETERS as $parameter) {
             $parameterValue = $container->getParameter($parameter);
+
             if (!$container->hasDefinition($parameterValue)) {
                 throw new InvalidArgumentException(sprintf('No service definition exists with id "%s"', $parameterValue));
             }
 
             $definitionClass = $container->getDefinition($parameterValue)->getClass();
+
             Assert::notNull($definitionClass);
 
-            if (!is_a($definitionClass, FilesystemInterface::class, true)) {
+            if (!is_a($definitionClass, Filesystem::class, true)) {
                 throw new InvalidDefinitionException(sprintf(
                     'The config parameter "%s" references a service %s, which is not an instance of %s. Fix this by creating a valid service that implements %s.',
                     $parameter,
                     $definitionClass,
-                    FilesystemInterface::class,
-                    FilesystemInterface::class
+                    Filesystem::class,
+                    Filesystem::class
                 ));
             }
 
