@@ -89,7 +89,7 @@ final class MoveGeneratedFeedSubscriber implements EventSubscriberInterface
                 } catch (FileNotFoundException $e) {
                 }
 
-                $this->filesystem->rename($path, (string) $newPath);
+                $this->filesystem->move($path, (string) $newPath);
 
                 $this->temporaryFilesystem->delete((string) $temporaryPath);
             }

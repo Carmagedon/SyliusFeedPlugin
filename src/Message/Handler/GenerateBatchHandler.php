@@ -6,11 +6,6 @@ namespace Setono\SyliusFeedPlugin\Message\Handler;
 
 use Doctrine\Persistence\ObjectManager;
 use InvalidArgumentException;
-use const JSON_INVALID_UTF8_IGNORE;
-use const JSON_PRESERVE_ZERO_FRACTION;
-use const JSON_PRETTY_PRINT;
-use const JSON_UNESCAPED_SLASHES;
-use const JSON_UNESCAPED_UNICODE;
 use League\Flysystem\Filesystem;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Log\LoggerInterface;
@@ -43,6 +38,12 @@ use Symfony\Component\Workflow\Workflow;
 use Throwable;
 use Twig\Environment;
 use Webmozart\Assert\Assert;
+
+use const JSON_INVALID_UTF8_IGNORE;
+use const JSON_PRESERVE_ZERO_FRACTION;
+use const JSON_PRETTY_PRINT;
+use const JSON_UNESCAPED_SLASHES;
+use const JSON_UNESCAPED_UNICODE;
 
 final class GenerateBatchHandler implements MessageHandlerInterface
 {
@@ -210,7 +211,7 @@ final class GenerateBatchHandler implements MessageHandlerInterface
 
             fclose($stream);
 
-            Assert::true($res, 'An error occurred when trying to write a feed item');
+            // Assert::true($res, 'An error occurred when trying to write a feed item');
 
             $this->feedManager->flush();
             $this->feedManager->clear();

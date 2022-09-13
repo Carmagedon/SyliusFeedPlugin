@@ -33,7 +33,7 @@ final class TemporaryFeedPathGenerator implements FeedPathGeneratorInterface
     {
         do {
             $path = $dir->getPathname() . '/' . uniqid('partial-', true);
-        } while ($filesystem->has($path));
+        } while ($filesystem->fileExists($path));
 
         return new SplFileInfo($path);
     }

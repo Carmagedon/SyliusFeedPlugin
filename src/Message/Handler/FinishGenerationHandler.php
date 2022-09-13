@@ -95,6 +95,11 @@ final class FinishGenerationHandler implements MessageHandlerInterface
                     $files = $this->filesystem->listContents((string) $dir);
                     /** @var array{basename: string, path: string} $file */
                     foreach ($files as $file) {
+                        $file = [
+                            'path' => $file->path(),
+                            'basename' => basename($file->path()),
+                        ];
+
                         Assert::isArray($file);
                         Assert::keyExists($file, 'basename');
                         Assert::keyExists($file, 'path');
