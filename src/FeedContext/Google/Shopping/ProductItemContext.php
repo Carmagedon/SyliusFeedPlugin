@@ -96,6 +96,13 @@ class ProductItemContext implements ItemContextInterface
                 $data->setLink($this->getLink($locale, $translation));
             }
 
+            $translationVariant = $this->getTranslation($variant, (string) $locale->getCode());
+            if($translationVariant !== null && $translationVariant->getName())
+            {
+                $data->setTitle($translation->getName() . ' - ' . $translationVariant->getName());
+            }
+
+
             $data->setCondition(
                 $product instanceof ConditionAwareInterface ?
                     new Condition((string) $product->getCondition()) : Condition::new()
@@ -105,7 +112,7 @@ class ProductItemContext implements ItemContextInterface
                 $data->setProductType($productType);
             }
 
-            if ($variant instanceof LocalizedBrandAwareInterface && $variant->getBrand($locale) !== null) {
+            /*if ($variant instanceof LocalizedBrandAwareInterface && $variant->getBrand($locale) !== null) {
                 $data->setBrand((string) $variant->getBrand($locale));
             } elseif ($variant instanceof BrandAwareInterface && $variant->getBrand() !== null) {
                 $data->setBrand((string) $variant->getBrand());
@@ -113,7 +120,9 @@ class ProductItemContext implements ItemContextInterface
                 $data->setBrand((string) $product->getBrand($locale));
             } elseif ($product instanceof BrandAwareInterface && $product->getBrand() !== null) {
                 $data->setBrand((string) $product->getBrand());
-            }
+            }*/
+
+            $data->setBrand($channel->getName());
 
             if ($variant instanceof GtinAwareInterface && $variant->getGtin() !== null) {
                 $data->setGtin((string) $variant->getGtin());
@@ -149,7 +158,6 @@ class ProductItemContext implements ItemContextInterface
 
             $contextList->add($data);
         }
-
         return $contextList;
     }
 
