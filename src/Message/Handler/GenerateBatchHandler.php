@@ -161,7 +161,7 @@ final class GenerateBatchHandler implements MessageHandlerInterface
 
                         if ($constraintViolationList->count() > 0) {
                             /** @var ConstraintViolationInterface $constraintViolation */
-                            foreach ($constraintViolationList as $constraintViolation) {
+                            /* foreach ($constraintViolationList as $constraintViolation) {
                                 $violation = $this->violationFactory->createFromConstraintViolation(
                                     $constraintViolation,
                                     $channel,
@@ -177,7 +177,7 @@ final class GenerateBatchHandler implements MessageHandlerInterface
                                 }
 
                                 $feed->addViolation($violation);
-                            }
+                            }*/
 
                             $this->eventDispatcher->dispatch(new GenerateBatchViolationEvent(
                                 $feed,
