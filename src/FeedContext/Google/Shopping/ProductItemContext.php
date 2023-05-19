@@ -81,8 +81,8 @@ class ProductItemContext implements ItemContextInterface
         foreach ($product->getVariants() as $variant) {
             Assert::isInstanceOf($variant, ProductVariantInterface::class);
             $data = new Product();
-            $data->setId($variant->getCode());
-            $data->setItemGroupId($product->getCode());
+            $data->setId($variant->getId());
+            $data->setItemGroupId($product->getId());
             $data->setImageLink($this->getVariantImageLink($variant) ?? $this->getImageLink($product));
             $data->setAvailability($this->getAvailability($variant));
 
@@ -201,7 +201,7 @@ class ProductItemContext implements ItemContextInterface
             return null;
         }
 
-        return $this->cacheManager->getBrowserPath((string) $image->getPath(), 'sylius_shop_product_large_thumbnail');
+        return $this->cacheManager->getBrowserPath((string) $image->getPath(), 'app_shop_product_list_thumb');
     }
 
     private function getImageLink(ImagesAwareInterface $imagesAware): ?string
@@ -221,7 +221,7 @@ class ProductItemContext implements ItemContextInterface
             return null;
         }
 
-        return $this->cacheManager->getBrowserPath((string) $image->getPath(), 'sylius_shop_product_large_thumbnail');
+        return $this->cacheManager->getBrowserPath((string) $image->getPath(), 'app_shop_product_list_thumb');
     }
 
     /**
