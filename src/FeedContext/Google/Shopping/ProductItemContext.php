@@ -81,8 +81,8 @@ class ProductItemContext implements ItemContextInterface
         foreach ($product->getVariants() as $variant) {
             Assert::isInstanceOf($variant, ProductVariantInterface::class);
             $data = new Product();
-            $data->setId($variant->getId());
-            $data->setItemGroupId($product->getId());
+            $data->setId(strval($variant->getId()));
+            $data->setItemGroupId(strval($product->getId()));
             $data->setImageLink($this->getVariantImageLink($variant) ?? $this->getImageLink($product));
             $data->setAvailability($this->getAvailability($variant));
 
