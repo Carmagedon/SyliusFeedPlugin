@@ -88,7 +88,7 @@ class ProductItemContext implements ItemContextInterface
             $data = new Product();
             $data->setId(strval($variant->getId()));
             $data->setItemGroupId(strval($product->getId()));
-            $data->setImageLink($this->getVariantImageLink($variant) ?? $this->getImageLink($product));
+            $data->setImageLink($this->getVariantImageLink($variant, $locale->getCode()) ?? $this->getImageLink($product, $locale->getCode()));
             $data->setAvailability($this->getAvailability($variant));
 
             [$price, $salePrice] = $this->getPrices($variant, $channel);
@@ -191,7 +191,7 @@ class ProductItemContext implements ItemContextInterface
         );
     }
 
-    private function getVariantImageLink(ProductImagesAwareInterface $imagesAware): ?string {
+    private function getVariantImageLink(ProductImagesAwareInterface $imagesAware, $locale): ?string {
         $images = $imagesAware->getImagesByType('main');
         if ($images->count() === 0) {
             $images = $imagesAware->getImages();
@@ -207,10 +207,18 @@ class ProductItemContext implements ItemContextInterface
         }
 
         //return $this->cacheManager->getBrowserPath((string) $image->getPath(), 'app_shop_product_list_thumb');
-        return $this->imagineFilter->getUrlOfFilteredImage(urldecode($image->getPath()), 'app_shop_product_list_thumb');
+        
+        $link = '';
+        
+        if ($locale == 'sk_SK') {
+            $link = $this->imagineFilter->getUrlOfFilteredImage(urldecode($image->getPath()), 'app_shop_product_list_thumb');
+            $link = str_replace('https://localhost', 'https://deermates.sk', $link);
+        }
+        
+        return $link;
     }
 
-    private function getImageLink(ImagesAwareInterface $imagesAware): ?string
+    private function getImageLink(ImagesAwareInterface $imagesAware, $locale): ?string
     {
         $images = $imagesAware->getImagesByType('main');
         if ($images->count() === 0) {
@@ -227,8 +235,14 @@ class ProductItemContext implements ItemContextInterface
             return null;
         }
 
-        return $this->imagineFilter->getUrlOfFilteredImage(urldecode($image->getPath()), 'app_shop_product_list_thumb');
-        //return $this->cacheManager->getBrowserPath((string) $image->getPath(), 'app_shop_product_list_thumb');
+        $link = '';
+        
+        if ($locale == 'sk_SK') {
+            $link = $this->imagineFilter->getUrlOfFilteredImage(urldecode($image->getPath()), 'app_shop_product_list_thumb');
+            $link = str_replace('https://localhost', 'https://deermates.sk', $link);
+        }
+        
+        return $link;
     }
 
     /**
