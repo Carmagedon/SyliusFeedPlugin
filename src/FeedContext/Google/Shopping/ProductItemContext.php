@@ -47,15 +47,19 @@ class ProductItemContext implements ItemContextInterface
     private CacheManager $cacheManager;
 
     private AvailabilityCheckerInterface $availabilityChecker;
+    
+    private $imagineFilter;
 
     public function __construct(
         RouterInterface $router,
         CacheManager $cacheManager,
-        AvailabilityCheckerInterface $availabilityChecker
+        AvailabilityCheckerInterface $availabilityChecker,
+        FilterService $imagineFilter
     ) {
         $this->router = $router;
         $this->cacheManager = $cacheManager;
         $this->availabilityChecker = $availabilityChecker;
+        $this->imagineFilter = $imagineFilter;
     }
 
     public function getContextList(object $product, ChannelInterface $channel, LocaleInterface $locale): ContextListInterface
@@ -221,7 +225,8 @@ class ProductItemContext implements ItemContextInterface
             return null;
         }
 
-        return $this->cacheManager->getBrowserPath((string) $image->getPath(), 'app_shop_product_list_thumb');
+        return $this->imagineFilter->getUrlOfFilteredImage(urldecode($image->getPath()), 'app_shop_product_list_thumb');
+        //return $this->cacheManager->getBrowserPath((string) $image->getPath(), 'app_shop_product_list_thumb');
     }
 
     /**
