@@ -206,7 +206,8 @@ class ProductItemContext implements ItemContextInterface
             return null;
         }
 
-        return $this->cacheManager->getBrowserPath((string) $image->getPath(), 'app_shop_product_list_thumb');
+        //return $this->cacheManager->getBrowserPath((string) $image->getPath(), 'app_shop_product_list_thumb');
+        return $this->imagineFilter->getUrlOfFilteredImage(urldecode($image->getPath()), 'app_shop_product_list_thumb');
     }
 
     private function getImageLink(ImagesAwareInterface $imagesAware): ?string
