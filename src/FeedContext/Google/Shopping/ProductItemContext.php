@@ -39,6 +39,7 @@ use Sylius\Component\Taxonomy\Model\TaxonTranslationInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Webmozart\Assert\Assert;
+use Liip\ImagineBundle\Service\FilterService;
 
 class ProductItemContext implements ItemContextInterface
 {
