@@ -11,7 +11,11 @@
         <g:additional_image_link>{{ additionalImageLink|e }}</g:additional_image_link>
     {% endfor %}
     <g:availability>{{ item.availability|e }}</g:availability>
-    <g:price>{{ item.salePrice|e }}</g:price>
+    {% if item.salePrice %}
+        <g:price>{{ item.salePrice|e }}</g:price>
+    {% else %}
+        <g:price>{{ item.price|e }}</g:price>
+    {% endif %}
     <g:sale_price_effective_date>{{ item.salePriceEffectiveDate|e }}</g:sale_price_effective_date>
     <g:brand>{{ item.brand }}</g:brand>
     <g:gtin>{{ item.gtin|e }}</g:gtin>
