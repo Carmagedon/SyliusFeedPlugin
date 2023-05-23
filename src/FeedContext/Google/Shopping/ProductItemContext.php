@@ -160,6 +160,8 @@ class ProductItemContext implements ItemContextInterface
             } elseif ($product instanceof ColorAwareInterface && $product->getColor() !== null) {
                 $data->setColor((string) $product->getColor());
             }
+            
+            $data->testLabel = 'label';
 
             $contextList->add($data);
         }
