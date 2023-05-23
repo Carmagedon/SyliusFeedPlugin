@@ -27,6 +27,7 @@
     {% for idx, customLabel in item.customLabels %}
         <g:custom_label_{{ idx }}>{{ customLabel|e }}</g:custom_label_{{ idx }}>
     {% endfor %}
+    <g:custom_label_0>{{ item.customLabel|e }}</g:custom_label_0>
 {% endapply %}
 {% endapply %}
 </item>
