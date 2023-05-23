@@ -161,7 +161,7 @@ class ProductItemContext implements ItemContextInterface
                 $data->setColor((string) $product->getColor());
             }
             
-            $data->testLabel = 'label';
+            $data->testLabel = $product->getMainTaxon()->getName();
 
             $contextList->add($data);
         }
