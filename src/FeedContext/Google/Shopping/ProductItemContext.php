@@ -217,8 +217,7 @@ class ProductItemContext implements ItemContextInterface
             $link = str_replace('https://localhost', 'https://deermates.sk', $link);
         }
         
-        //return $link;
-        return '';
+        return $link;
     }
 
     private function getImageLink(ImagesAwareInterface $imagesAware, $locale): ?string
@@ -245,8 +244,7 @@ class ProductItemContext implements ItemContextInterface
             $link = str_replace('https://localhost', 'https://deermates.sk', $link);
         }
         
-        //return $link;
-        return '';
+        return $link;
     }
 
     /**
