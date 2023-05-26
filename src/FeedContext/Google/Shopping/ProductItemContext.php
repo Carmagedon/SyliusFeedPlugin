@@ -222,6 +222,11 @@ class ProductItemContext implements ItemContextInterface
             $link = str_replace('https://localhost', 'https://deermates.cz', $link);
         }
         
+        if ($locale == 'hu_HU') {
+            $link = $this->imagineFilter->getUrlOfFilteredImage(urldecode($image->getPath()), 'app_shop_product_list_thumb');
+            $link = str_replace('https://localhost', 'https://deermates.hu', $link);
+        }
+        
         return $link;
     }
 
@@ -252,6 +257,11 @@ class ProductItemContext implements ItemContextInterface
         if ($locale == 'cs_CZ') {
             $link = $this->imagineFilter->getUrlOfFilteredImage(urldecode($image->getPath()), 'app_shop_product_list_thumb');
             $link = str_replace('https://localhost', 'https://deermates.cz', $link);
+        }
+        
+        if ($locale == 'hu_HU') {
+            $link = $this->imagineFilter->getUrlOfFilteredImage(urldecode($image->getPath()), 'app_shop_product_list_thumb');
+            $link = str_replace('https://localhost', 'https://deermates.hu', $link);
         }
         
         return $link;
