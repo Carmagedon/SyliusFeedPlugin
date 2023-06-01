@@ -213,17 +213,17 @@ class ProductItemContext implements ItemContextInterface
         $link = '';
         
         if ($locale == 'sk_SK') {
-            $link = $this->imagineFilter->getUrlOfFilteredImage(urldecode($image->getPath()), 'app_shop_product_list_thumb');
+            $link = $this->imagineFilter->getUrlOfFilteredImage(urldecode($image->getPath()), 'app_shop_product_large_thumbnail');
             $link = str_replace('https://localhost', 'https://deermates.sk', $link);
         }
         
         if ($locale == 'cs_CZ') {
-            $link = $this->imagineFilter->getUrlOfFilteredImage(urldecode($image->getPath()), 'app_shop_product_list_thumb');
+            $link = $this->imagineFilter->getUrlOfFilteredImage(urldecode($image->getPath()), 'app_shop_product_large_thumbnail');
             $link = str_replace('https://localhost', 'https://deermates.cz', $link);
         }
         
         if ($locale == 'hu_HU') {
-            $link = $this->imagineFilter->getUrlOfFilteredImage(urldecode($image->getPath()), 'app_shop_product_list_thumb');
+            $link = $this->imagineFilter->getUrlOfFilteredImage(urldecode($image->getPath()), 'app_shop_product_large_thumbnail');
             $link = str_replace('https://localhost', 'https://deermates.hu', $link);
         }
         
@@ -250,17 +250,17 @@ class ProductItemContext implements ItemContextInterface
         $link = '';
         
         if ($locale == 'sk_SK') {
-            $link = $this->imagineFilter->getUrlOfFilteredImage(urldecode($image->getPath()), 'app_shop_product_list_thumb');
+            $link = $this->imagineFilter->getUrlOfFilteredImage(urldecode($image->getPath()), 'app_shop_product_large_thumbnail');
             $link = str_replace('https://localhost', 'https://deermates.sk', $link);
         }
         
         if ($locale == 'cs_CZ') {
-            $link = $this->imagineFilter->getUrlOfFilteredImage(urldecode($image->getPath()), 'app_shop_product_list_thumb');
+            $link = $this->imagineFilter->getUrlOfFilteredImage(urldecode($image->getPath()), 'app_shop_product_large_thumbnail');
             $link = str_replace('https://localhost', 'https://deermates.cz', $link);
         }
         
         if ($locale == 'hu_HU') {
-            $link = $this->imagineFilter->getUrlOfFilteredImage(urldecode($image->getPath()), 'app_shop_product_list_thumb');
+            $link = $this->imagineFilter->getUrlOfFilteredImage(urldecode($image->getPath()), 'app_shop_product_large_thumbnail');
             $link = str_replace('https://localhost', 'https://deermates.hu', $link);
         }
         
