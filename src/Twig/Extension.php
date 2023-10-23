@@ -59,7 +59,7 @@ final class Extension extends AbstractExtension
 
     private function getScheme(): string
     {
-        $request = $this->requestStack->getMasterRequest();
+        $request = $this->requestStack->getMainRequest();
         if (null === $request) {
             return 'https';
         }
