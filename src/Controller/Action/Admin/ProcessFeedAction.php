@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Setono\SyliusFeedPlugin\Controller\Action\Admin;
 
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Setono\SyliusFeedPlugin\Message\Command\ProcessFeed;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
@@ -23,11 +23,15 @@ final class ProcessFeedAction
     private TranslatorInterface $translator;
 
     public function __construct(
-        Request $request,
         MessageBusInterface $commandBus,
         UrlGeneratorInterface $urlGenerator,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        RequestStack $requestStack,
     ) {
+
+        // Get the current request from the request stack
+        $request = $requestStack->getCurrentRequest();
+
         $this->commandBus = $commandBus;
         $this->urlGenerator = $urlGenerator;
         $this->flashBag = $request->getSession()->getBag('flashes');
