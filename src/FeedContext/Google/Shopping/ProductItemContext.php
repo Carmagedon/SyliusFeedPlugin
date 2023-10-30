@@ -48,7 +48,7 @@ class ProductItemContext implements ItemContextInterface
     private CacheManager $cacheManager;
 
     private AvailabilityCheckerInterface $availabilityChecker;
-    
+
     private $imagineFilter;
 
     public function __construct(
@@ -83,12 +83,17 @@ class ProductItemContext implements ItemContextInterface
         /** @var ProductTranslationInterface|null $translation */
         $translation = $this->getTranslation($product, (string) $locale->getCode());
         $contextList = new ContextList();
+
+
         foreach ($product->getVariants() as $variant) {
             Assert::isInstanceOf($variant, ProductVariantInterface::class);
             $data = new Product();
             $data->setId(strval($variant->getId()));
             $data->setItemGroupId(strval($product->getId()));
+
             $data->setImageLink($this->getVariantImageLink($variant, $locale->getCode()) ?? $this->getImageLink($product, $locale->getCode()));
+
+            ///die;
             $data->setAvailability($this->getAvailability($variant));
 
             [$price, $salePrice] = $this->getPrices($variant, $channel);
@@ -160,7 +165,7 @@ class ProductItemContext implements ItemContextInterface
             } elseif ($product instanceof ColorAwareInterface && $product->getColor() !== null) {
                 $data->setColor((string) $product->getColor());
             }
-            
+
             $data->testLabel = $product->getMainTaxon()->getName();
 
             $contextList->add($data);
@@ -195,6 +200,7 @@ class ProductItemContext implements ItemContextInterface
 
     private function getVariantImageLink(ProductImagesAwareInterface $imagesAware, $locale): ?string {
         $images = $imagesAware->getImagesByType('main');
+
         if ($images->count() === 0) {
             $images = $imagesAware->getImages();
         }
@@ -204,30 +210,12 @@ class ProductItemContext implements ItemContextInterface
 
         /** @var ImageInterface|false $image */
         $image = $images->first();
+
         if (false === $image) {
             return null;
         }
 
-        //return $this->cacheManager->getBrowserPath((string) $image->getPath(), 'app_shop_product_list_thumb');
-        
-        $link = '';
-        
-        if ($locale == 'sk_SK') {
-            $link = $this->imagineFilter->getUrlOfFilteredImage(urldecode($image->getPath()), 'app_shop_product_large_thumbnail');
-            $link = str_replace('https://localhost', 'https://deermates.sk', $link);
-        }
-        
-        if ($locale == 'cs_CZ') {
-            $link = $this->imagineFilter->getUrlOfFilteredImage(urldecode($image->getPath()), 'app_shop_product_large_thumbnail');
-            $link = str_replace('https://localhost', 'https://deermates.cz', $link);
-        }
-        
-        if ($locale == 'hu_HU') {
-            $link = $this->imagineFilter->getUrlOfFilteredImage(urldecode($image->getPath()), 'app_shop_product_large_thumbnail');
-            $link = str_replace('https://localhost', 'https://deermates.hu', $link);
-        }
-        
-        return $link;
+        return $this->cacheManager->getBrowserPath(parse_url($image->getPath(), PHP_URL_PATH), 'app_shop_product_large_thumbnail');
     }
 
     private function getImageLink(ImagesAwareInterface $imagesAware, $locale): ?string
@@ -247,24 +235,7 @@ class ProductItemContext implements ItemContextInterface
             return null;
         }
 
-        $link = '';
-        
-        if ($locale == 'sk_SK') {
-            $link = $this->imagineFilter->getUrlOfFilteredImage(urldecode($image->getPath()), 'app_shop_product_large_thumbnail');
-            $link = str_replace('https://localhost', 'https://deermates.sk', $link);
-        }
-        
-        if ($locale == 'cs_CZ') {
-            $link = $this->imagineFilter->getUrlOfFilteredImage(urldecode($image->getPath()), 'app_shop_product_large_thumbnail');
-            $link = str_replace('https://localhost', 'https://deermates.cz', $link);
-        }
-        
-        if ($locale == 'hu_HU') {
-            $link = $this->imagineFilter->getUrlOfFilteredImage(urldecode($image->getPath()), 'app_shop_product_large_thumbnail');
-            $link = str_replace('https://localhost', 'https://deermates.hu', $link);
-        }
-        
-        return $link;
+        return $this->cacheManager->getBrowserPath(parse_url($image->getPath(), PHP_URL_PATH), 'app_shop_product_large_thumbnail');
     }
 
     /**
