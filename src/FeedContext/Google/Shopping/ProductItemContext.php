@@ -92,6 +92,7 @@ class ProductItemContext implements ItemContextInterface
             $data->setItemGroupId(strval($product->getId()));
 
             $data->setImageLink($this->getVariantImageLink($variant, $locale->getCode()) ?? $this->getImageLink($product, $locale->getCode()));
+            $data->setAdditionalImageLinks($this->getVariantAdditionalImagesLinks($variant, $locale->getCode()) ?? $this->getVariantAdditionalImagesLinks($product, $locale->getCode()));
 
             ///die;
             $data->setAvailability($this->getAvailability($variant));
@@ -208,6 +209,10 @@ class ProductItemContext implements ItemContextInterface
             return null;
         }
 
+        $images = $images->filter(function ($image) use ($locale) {
+            return $image->getImageLocale() === $locale || $image->getImageLocale() === 'all';
+        });
+
         /** @var ImageInterface|false $image */
         $image = $images->first();
 
@@ -216,6 +221,29 @@ class ProductItemContext implements ItemContextInterface
         }
 
         return $this->cacheManager->getBrowserPath(parse_url($image->getPath(), PHP_URL_PATH), 'app_shop_product_large_thumbnail');
+    }
+
+    private function getVariantAdditionalImagesLinks(ProductImagesAwareInterface|ImagesAwareInterface $imagesAware, $locale): ?array {
+        $images = $imagesAware->getImagesByType('main');
+
+        if ($images->count() === 0) {
+            $images = $imagesAware->getImages();
+        }
+        if ($images->count() === 0) {
+            return null;
+        }
+
+        $images = $images->filter(function ($image) use ($locale) {
+            return $image->getImageLocale() === $locale || $image->getImageLocale() === 'all';
+        });
+        $images->removeElement($images->first());
+
+        $additionalImages = [];
+        foreach ($images as $key => $image) {
+            $additionalImages[] = $this->cacheManager->getBrowserPath(parse_url($image->getPath(), PHP_URL_PATH), 'app_shop_product_large_thumbnail');
+        }
+
+        return $additionalImages;
     }
 
     private function getImageLink(ImagesAwareInterface $imagesAware, $locale): ?string
@@ -228,6 +256,10 @@ class ProductItemContext implements ItemContextInterface
         if ($images->count() === 0) {
             return null;
         }
+
+        $images = $images->filter(function ($image) use ($locale) {
+            return $image->getImageLocale() === $locale || $image->getImageLocale() === 'all';
+        });
 
         /** @var ImageInterface|false $image */
         $image = $images->first();
