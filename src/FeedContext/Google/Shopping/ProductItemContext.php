@@ -210,7 +210,7 @@ class ProductItemContext implements ItemContextInterface
         }
 
         $images = $images->filter(function ($image) use ($locale) {
-            return $image->getImageLocale() === $locale || $image->getImageLocale() === 'all';
+            return $image->getImageLocale() === $locale || $image->getImageLocale() === 'all' || $image->getImageLocale() === null;
         });
 
         /** @var ImageInterface|false $image */
@@ -234,7 +234,7 @@ class ProductItemContext implements ItemContextInterface
         }
 
         $images = $images->filter(function ($image) use ($locale) {
-            return $image->getImageLocale() === $locale || $image->getImageLocale() === 'all';
+            return $image->getImageLocale() === $locale || $image->getImageLocale() === 'all' || $image->getImageLocale() === null;
         });
         $images->removeElement($images->first());
 
@@ -258,7 +258,7 @@ class ProductItemContext implements ItemContextInterface
         }
 
         $images = $images->filter(function ($image) use ($locale) {
-            return $image->getImageLocale() === $locale || $image->getImageLocale() === 'all';
+            return $image->getImageLocale() === $locale || $image->getImageLocale() === 'all' || $image->getImageLocale() === null;
         });
 
         /** @var ImageInterface|false $image */
